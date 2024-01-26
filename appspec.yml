@@ -1,0 +1,24 @@
+version: 0.0
+os: linux
+
+resources:
+  - myEKSDeploymentGroup:
+      - myEKSApplication
+
+hooks:
+  ApplicationStop:
+    - location: scripts/stop_application.sh
+      timeout: 300
+      runas: codedeployuser
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      timeout: 300
+      runas: codedeployuser
+  AfterInstall:
+    - location: scripts/after_install.sh
+      timeout: 300
+      runas: codedeployuser
+  ApplicationStart:
+    - location: scripts/start_application.sh
+      timeout: 300
+      runas: codedeployuser
